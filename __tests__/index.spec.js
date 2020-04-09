@@ -14,5 +14,11 @@ describe("toBeSorted", () => {
         "Expected [1,2,3] to not be sorted in ascending order"
       );
     });
+    it("fail: array of ascending numbers", () => {
+      expect(toBeSorted([3, 2, 1]).pass).toBe(false);
+      expect(toBeSorted([3, 2, 1]).message()).toBe(
+        "Expected [3,2,1] to be sorted in ascending order"
+      );
+    });
   });
 });
