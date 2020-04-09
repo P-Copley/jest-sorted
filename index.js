@@ -2,7 +2,6 @@ const { toBeSorted } = require("./src/sorted");
 
 const jestExpect = global.expect;
 
-console.log("hai");
 if (jestExpect !== undefined) {
   jestExpect.extend({
     toBeSorted,
