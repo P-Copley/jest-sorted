@@ -33,5 +33,8 @@ describe("toBeSorted", () => {
         "Expected [3,2,1] to be sorted in ascending order"
       );
     });
+    it("pass - { descending: true }: array of descending numbers", () => {
+      expect(toBeSorted([3, 2, 1], { descending: true }).pass).toBe(true);
+    });
   });
 });

@@ -1,4 +1,5 @@
-exports.toBeSorted = (recieved, options) => {
+exports.toBeSorted = (recieved, options = {}) => {
+  const { descending = false } = options;
   const passMessage = `Expected [${recieved}] to not be sorted in ascending order`;
   const failMessage = `Expected [${recieved}] to be sorted in ascending order`;
   let pass = true;
@@ -6,7 +7,7 @@ exports.toBeSorted = (recieved, options) => {
   for (let i = 0; i < recieved.length; i++) {
     let ele = recieved[i];
     let nextEle = recieved[i + 1];
-    if (ele > nextEle) {
+    if (descending ? ele < nextEle : ele > nextEle) {
       pass = false;
       break;
     }
