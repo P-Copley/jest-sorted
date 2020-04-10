@@ -65,5 +65,10 @@ describe("toBeSorted", () => {
         "Expected Array(3) to not be sorted by num in ascending order"
       );
     });
+    it('fail - { key: "sortKey" }: message provided includes a passed key', () => {
+      expect(toBeSorted(descendingObjs, { key: "num" }).message()).toBe(
+        "Expected Array(3) to be sorted by num in ascending order"
+      );
+    });
   });
 });
