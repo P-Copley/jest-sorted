@@ -36,5 +36,18 @@ describe("toBeSorted", () => {
     it("pass - { descending: true }: array of descending numbers", () => {
       expect(toBeSorted([3, 2, 1], { descending: true }).pass).toBe(true);
     });
+    it("fail - { descending: true }: array of descending numbers", () => {
+      expect(toBeSorted([1, 2, 3], { descending: true }).pass).toBe(false);
+    });
+    it("pass - { descending: true }: array of descending numbers message provided for .not case", () => {
+      expect(toBeSorted([3, 2, 1], { descending: true }).message()).toBe(
+        "Expected [3,2,1] to not be sorted in descending order"
+      );
+    });
+    it("fail - { descending: true }: array of descending numbers message provided for .not case", () => {
+      expect(toBeSorted([1, 2, 3], { descending: true }).message()).toBe(
+        "Expected [1,2,3] to be sorted in descending order"
+      );
+    });
   });
 });
