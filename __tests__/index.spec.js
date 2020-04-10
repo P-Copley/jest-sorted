@@ -28,7 +28,7 @@ describe("toBeSorted", () => {
         "Expected [1,2,3] to not be sorted in ascending order"
       );
     });
-    it("fail: array of ascending numbers message provided for .not case", () => {
+    it("fail: array of ascending numbers message provided", () => {
       expect(toBeSorted([3, 2, 1]).message()).toBe(
         "Expected [3,2,1] to be sorted in ascending order"
       );
@@ -44,7 +44,7 @@ describe("toBeSorted", () => {
         "Expected [3,2,1] to not be sorted in descending order"
       );
     });
-    it("fail - { descending: true }: array of descending numbers message provided for .not case", () => {
+    it("fail - { descending: true }: array of descending numbers message provided", () => {
       expect(toBeSorted([1, 2, 3], { descending: true }).message()).toBe(
         "Expected [1,2,3] to be sorted in descending order"
       );
