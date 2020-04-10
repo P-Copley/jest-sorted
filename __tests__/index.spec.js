@@ -60,5 +60,10 @@ describe("toBeSorted", () => {
     it('fail - { key: "sortKey" }: uses the passed key to sort nested objects', () => {
       expect(toBeSorted(descendingObjs, { key: "num" }).pass).toBe(false);
     });
+    it('pass - { key: "sortKey" }: message provided for .not case includes a passed key', () => {
+      expect(toBeSorted(ascendingObjs, { key: "num" }).message()).toBe(
+        "Expected Array(3) to not be sorted by num in ascending order"
+      );
+    });
   });
 });

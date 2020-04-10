@@ -1,11 +1,9 @@
 exports.toBeSorted = (recieved, options = {}) => {
   const { descending = false, key } = options;
-  const passMessage = `Expected [${recieved}] to not be sorted in ${
-    descending ? "descending" : "ascending"
-  } order`;
-  const failMessage = `Expected [${recieved}] to be sorted in ${
-    descending ? "descending" : "ascending"
-  } order`;
+  const arrayMsg = key ? `Array(${recieved.length})` : `[${recieved}]`;
+  const keyMsg = key ? `by ${key} ` : "";
+  const orderMsg = descending ? "descending" : "ascending";
+
   let pass = true;
 
   for (let i = 0; i < recieved.length; i++) {
@@ -18,8 +16,11 @@ exports.toBeSorted = (recieved, options = {}) => {
     }
   }
 
+  const passMsg = pass ? "not " : "";
+  const errMsg = `Expected ${arrayMsg} to ${passMsg}be sorted ${keyMsg}in ${orderMsg} order`;
+
   return {
     pass,
-    message: () => (pass ? passMessage : failMessage),
+    message: () => errMsg,
   };
 };
