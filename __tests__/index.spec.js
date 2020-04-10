@@ -50,4 +50,15 @@ describe("toBeSorted", () => {
       );
     });
   });
+
+  describe("array of objects", () => {
+    const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
+    const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
+    it('pass - { key: "sortKey" }: uses the passed key to sort nested objects', () => {
+      expect(toBeSorted(ascendingObjs, { key: "num" }).pass).toBe(true);
+    });
+    it('fail - { key: "sortKey" }: uses the passed key to sort nested objects', () => {
+      expect(toBeSorted(descendingObjs, { key: "num" }).pass).toBe(false);
+    });
+  });
 });
