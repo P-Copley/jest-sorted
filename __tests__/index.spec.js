@@ -71,4 +71,15 @@ describe("toBeSorted", () => {
       );
     });
   });
+
+  describe("number coercion", () => {
+    const ascendingStrings = ["2", "12", "123"];
+    const descendingStrings = ["223", "12", "1"];
+    it("pass - { coerce: true }: coerces values to NUmbers before comparison", () => {
+      expect(toBeSorted(ascendingStrings, { coerce: true }).pass).toBe(true);
+    });
+    it("fail - { coerce: true }: coerces values to NUmbers before comparison", () => {
+      expect(toBeSorted(descendingStrings, { coerce: true }).pass).toBe(false);
+    });
+  });
 });
