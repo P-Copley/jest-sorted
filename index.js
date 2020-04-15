@@ -1,10 +1,11 @@
-const { toBeSorted } = require("./src/sorted");
+const { toBeSorted, toBeSortedBy } = require("./src/sorted");
 
 const jestExpect = global.expect;
 
 if (jestExpect !== undefined) {
   jestExpect.extend({
     toBeSorted,
+    toBeSortedBy,
   });
 } else {
   /* eslint-disable no-console */

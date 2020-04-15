@@ -1,4 +1,4 @@
-const { toBeSorted } = require("../src/sorted");
+const { toBeSorted, toBeSortedBy } = require("../src/sorted");
 
 describe("toBeSorted", () => {
   describe("expect.toBeSorted", () => {
@@ -75,11 +75,36 @@ describe("toBeSorted", () => {
   describe("number coercion", () => {
     const ascendingStrings = ["2", "12", "123"];
     const descendingStrings = ["223", "12", "1"];
-    it("pass - { coerce: true }: coerces values to NUmbers before comparison", () => {
+    it("pass - { coerce: true }: coerces values to Numbers before comparison", () => {
       expect(toBeSorted(ascendingStrings, { coerce: true }).pass).toBe(true);
     });
-    it("fail - { coerce: true }: coerces values to NUmbers before comparison", () => {
+    it("fail - { coerce: true }: coerces values to Numbers before comparison", () => {
       expect(toBeSorted(descendingStrings, { coerce: true }).pass).toBe(false);
+    });
+  });
+
+  describe("toBeSortedBy", () => {
+    const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
+    const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
+    it("extends jest.expect", () => {
+      expect(typeof expect.toBeSortedBy).toBe("function");
+    });
+    it("is an alias for toBeSorted with the key option", () => {
+      expect(toBeSortedBy(ascendingObjs, "num").pass).toBe(true);
+      expect(toBeSortedBy(descendingObjs, "num").pass).toBe(false);
+    });
+    it("options are passed to toBeSorted", () => {
+      expect(
+        toBeSortedBy(ascendingObjs, "num", { descending: true }).pass
+      ).toBe(false);
+    });
+    it("key option is not passed, always uses the first argument", () => {
+      expect(
+        toBeSortedBy(ascendingObjs, "num", { descending: true, key: "missing" })
+          .pass
+      ).toBe(false);
+      console.log(expect.toBeSortedBy.toString());
+      expect(ascendingObjs).toBeSortedBy({ key: "num", descending: true });
     });
   });
 });

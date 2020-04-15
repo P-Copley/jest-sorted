@@ -31,3 +31,7 @@ exports.toBeSorted = (recieved, options = {}) => {
     message: () => errMsg,
   };
 };
+
+exports.toBeSortedBy = (recieved, key, options = {}, ...args) => {
+  return exports.toBeSorted(recieved, { ...options, key }, ...args);
+};
