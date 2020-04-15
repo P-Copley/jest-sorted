@@ -35,6 +35,8 @@ yarn add -D jest-sorted
 
 Add `jest-sorted` to your Jest `setupFilesAfterEnv` configuration. [See for help](https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array)
 
+For example, add the following to your `package.json` at the root level. See [configuring jest](https://jestjs.io/docs/en/configuration) for more info.
+
 ```json
 "jest": {
   "setupFilesAfterEnv": ["jest-sorted"]
