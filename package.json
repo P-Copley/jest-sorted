@@ -6,7 +6,15 @@
   "scripts": {
     "test": "jest --watch"
   },
-  "keywords": [],
+  "keywords": [
+    "jest",
+    "sorted",
+    "sorting",
+    "sort",
+    "toBeSorted",
+    "toBeSortedBy",
+    "extends"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
