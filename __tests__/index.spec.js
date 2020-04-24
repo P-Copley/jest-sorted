@@ -103,7 +103,6 @@ describe("toBeSorted", () => {
         toBeSortedBy(ascendingObjs, "num", { descending: true, key: "missing" })
           .pass
       ).toBe(false);
-      console.log(expect.toBeSortedBy.toString());
       expect(ascendingObjs).toBeSortedBy({ key: "num", descending: true });
     });
   });
