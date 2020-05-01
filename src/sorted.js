@@ -1,8 +1,8 @@
 exports.toBeSorted = (recieved, options = {}) => {
-  const { descending = false, key, coerce = false } = options;
+  const { descending = false, key, coerce = false, strict = true } = options;
   const arrayMsg = key ? `Array(${recieved.length})` : `[${recieved}]`;
-  const keyMsg = key ? `by ${key} ` : "";
   const orderMsg = descending ? "descending" : "ascending";
+  let keyMsg = key ? `by ${key} ` : "";
 
   let pass = true;
 
@@ -10,6 +10,11 @@ exports.toBeSorted = (recieved, options = {}) => {
     let ele = recieved[i];
     let nextEle = recieved[i + 1];
     if (key) {
+      if (strict && !(key in ele)) {
+        pass = false;
+        keyMsg = `by a missing key, ${key}, `;
+        break;
+      }
       ele = ele[key];
       nextEle = nextEle && nextEle[key];
     }

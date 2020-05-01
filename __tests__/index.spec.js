@@ -70,6 +70,14 @@ describe("toBeSorted", () => {
         "Expected Array(3) to be sorted by num in ascending order"
       );
     });
+    it('fail - { key: "sortKey" }: fails for a non-existant key', () => {
+      expect(toBeSorted(ascendingObjs, { key: "missing" }).pass).toBe(false);
+    });
+    it('fail - { key: "missingKey" }: message provided specifies the missing key', () => {
+      expect(toBeSorted(ascendingObjs, { key: "missing" }).message()).toBe(
+        "Expected Array(3) to be sorted by a missing key, missing, in ascending order"
+      );
+    });
   });
 
   describe("number coercion", () => {
@@ -103,7 +111,6 @@ describe("toBeSorted", () => {
         toBeSortedBy(ascendingObjs, "num", { descending: true, key: "missing" })
           .pass
       ).toBe(false);
-      expect(ascendingObjs).toBeSortedBy({ key: "num", descending: true });
     });
   });
 });
