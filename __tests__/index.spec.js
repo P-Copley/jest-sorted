@@ -70,12 +70,24 @@ describe("toBeSorted", () => {
         "Expected Array(3) to be sorted by num in ascending order"
       );
     });
-    it('fail - { key: "sortKey" }: fails for a non-existant key', () => {
+    it('fail - { key: "missingKey" }: fails for a non-existant key', () => {
       expect(toBeSorted(ascendingObjs, { key: "missing" }).pass).toBe(false);
     });
     it('fail - { key: "missingKey" }: message provided specifies the missing key', () => {
       expect(toBeSorted(ascendingObjs, { key: "missing" }).message()).toBe(
         "Expected Array(3) to be sorted by a missing key, missing, in ascending order"
+      );
+    });
+    it('pass - { key: "missingKey", strict: "false" }: passes in non-strict mode as all values are undefined', () => {
+      expect(
+        toBeSorted(ascendingObjs, { key: "missing", strict: false }).pass
+      ).toBe(true);
+    });
+    it('fail - { key: "missingKey", strict: "false" }: message provided for the .not casespecifies the missing key', () => {
+      expect(
+        toBeSorted(ascendingObjs, { key: "missing", strict: false }).message()
+      ).toBe(
+        "Expected Array(3) to not be sorted by missing in ascending order"
       );
     });
   });
