@@ -106,6 +106,15 @@ expect(["2", "12"]).toBeSorted({ coerce: true });
 expect([{ id: 1 }, { id: 2 }, { id: 3 }]).toBeSorted({ key: "id" });
 ```
 
+- strict : boolean - Fails the assertion if a passed key option does not exist in the object. (Defaults to true) Note: will use undefined for all missing keys and equal values are considered sorted.
+
+```js
+expect([{ id: 1 }, { id: 2 }, { id: 3 }]).toBeSorted({
+  key: "nothing",
+  strict: false,
+});
+```
+
 ### `toBeSortedBy`
 
 Passes if the array of objects is sorted in ascending order by the passed key. (Alias for toBeSorted({ key }))
@@ -131,5 +140,13 @@ expect([{ id: 3 }, { id: 2 }, { id: 1 }]).toBeSortedBy("id", {
 ```js
 expect([{ count: "2" }, { count: "12" }]).toBeSortedBy("count", {
   coerce: true,
+});
+```
+
+- strict : boolean - Fails the assertion if a passed key option does not exist in the object. (Defaults to true) Note: will use undefined for all missing keys and equal values are considered sorted.
+
+```js
+expect([{ id: 3 }, { id: 2 }, { id: 1 }]).toBeSortedBy("nothing", {
+  strict: false,
 });
 ```
