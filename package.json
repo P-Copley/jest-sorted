@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "build": "tsc"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "jest",
     "sorted",
@@ -28,5 +32,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/P-Copley/jest-sorted"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-typescript": "^7.9.0",
+    "babel-jest": "^25.5.1",
+    "typescript": "^3.8.3"
   }
 }
