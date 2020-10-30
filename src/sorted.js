@@ -1,14 +1,35 @@
-exports.toBeSorted = (recieved, options = {}) => {
-  const { descending = false, key, coerce = false, strict = true } = options;
-  const arrayMsg = key ? `Array(${recieved.length})` : `[${recieved}]`;
+const defaultCompare = (a, b) => {
+  if( a === undefined && b === undefined )
+    return 0;
+
+  if( a === undefined )
+    return 1;
+
+  if( b === undefined )
+    return -1;
+
+  if (a > b) {
+    return 1;
+  }
+  else if (a < b) {
+    return -1
+  }
+  return 0;
+}
+
+exports.toBeSorted = (received, options = {}) => {
+  const { descending = false, key, coerce = false, strict = true, compare = defaultCompare } = options;
+  const descMult = descending ? -1 : 1;
+  const arrayMsg = key ? `Array(${received.length})` : `[${received}]`;
   const orderMsg = descending ? "descending" : "ascending";
   let keyMsg = key ? `by ${key} ` : "";
 
   let pass = true;
 
-  for (let i = 0; i < recieved.length; i++) {
-    let ele = recieved[i];
-    let nextEle = recieved[i + 1];
+  // we're accessing the next element where we would compare with undefined.
+  for (let i = 0; i < received.length - 1; i++) {
+    let ele = received[i];
+    let nextEle = received[i + 1];
     if (key) {
       if (strict && !(key in ele)) {
         pass = false;
@@ -22,7 +43,7 @@ exports.toBeSorted = (recieved, options = {}) => {
       ele = +ele;
       nextEle = +nextEle;
     }
-    if (descending ? ele < nextEle : ele > nextEle) {
+    if (descMult * compare(ele, nextEle) > 0) {
       pass = false;
       break;
     }
