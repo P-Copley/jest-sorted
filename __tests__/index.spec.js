@@ -125,4 +125,32 @@ describe("toBeSorted", () => {
       ).toBe(false);
     });
   });
+
+  describe('compare function', () => {
+    const compare = (a, b) => a.localeCompare(b);
+    it('should pass for default compare function', () => {
+      expect(toBeSorted([1, 2, 3]).pass).toBe(true);
+    });
+    it('should fail for default compare function', () => {
+      expect(toBeSorted([3, 2, 1]).pass).toBe(false);
+    });
+    it('should pass descending with default compare function', () => {
+      expect(toBeSorted([3, 2, 1], { descending: true }).pass).toBe(true);
+    });
+    it('should pass for sorted with compare function', () => {
+      const sorted = ["a", "bb", "aa.a"].sort(compare);
+      expect(toBeSorted(sorted, {compare}).pass).toBe(true)
+    });
+    it('should fail for sorted with compare function but descending', () => {
+      const sorted = ["a", "bb", "aa.a"].sort(compare);
+      expect(toBeSorted(sorted, {compare, descending: true}).pass).toBe(false)
+    });
+    it('should pass for descending sorted with compare function', () => {
+      const descSorted = ["a", "ba", "a.b.c", "aa.a"].sort((a, b) => -compare(a, b));
+      expect(toBeSorted(
+          descSorted,
+          { descending: true, compare }
+      ).pass).toBe(true);
+    });
+  });
 });
