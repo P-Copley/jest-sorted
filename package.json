@@ -1,8 +1,9 @@
 {
   "name": "jest-sorted",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest --watch",
     "ci-test": "jest"
