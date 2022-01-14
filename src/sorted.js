@@ -28,6 +28,7 @@ exports.toBeSorted = (received, options = {}) => {
   const arrayMsg = key ? `Array(${iterable.length})` : `[${iterable}]`;
   const orderMsg = descending ? 'descending' : 'ascending';
   let keyMsg = key ? `by ${key} ` : '';
+  let failingElements = '';
 
   let pass = true;
 
@@ -50,13 +51,16 @@ exports.toBeSorted = (received, options = {}) => {
     }
     if (descMult * compare(ele, nextEle) > 0) {
       pass = false;
+      const eleOrder = descending ? 'before' : 'after';
+      const strEle = JSON.stringify(ele);
+      const strNextEle = JSON.stringify(nextEle);
+      failingElements = `\nExpected ${strEle} to be ${eleOrder} ${strNextEle}`;
       break;
     }
   }
 
   const passMsg = pass ? 'not ' : '';
-  const errMsg = `Expected ${arrayMsg} to ${passMsg}be sorted ${keyMsg}in ${orderMsg} order`;
-
+  const errMsg = `Expected ${arrayMsg} to ${passMsg}be sorted ${keyMsg}in ${orderMsg} order${failingElements}`;
   return {
     pass,
     message: () => errMsg,

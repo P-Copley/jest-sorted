@@ -30,7 +30,7 @@ describe('toBeSorted', () => {
     });
     it('fail: array of ascending numbers message provided', () => {
       expect(toBeSorted([3, 2, 1]).message()).toBe(
-        'Expected [3,2,1] to be sorted in ascending order'
+        'Expected [3,2,1] to be sorted in ascending order\nExpected 3 to be after 2'
       );
     });
     it('pass - { descending: true }: array of descending numbers', () => {
@@ -46,7 +46,7 @@ describe('toBeSorted', () => {
     });
     it('fail - { descending: true }: array of descending numbers message provided', () => {
       expect(toBeSorted([1, 2, 3], { descending: true }).message()).toBe(
-        'Expected [1,2,3] to be sorted in descending order'
+        'Expected [1,2,3] to be sorted in descending order\nExpected 1 to be before 2'
       );
     });
   });
@@ -67,7 +67,7 @@ describe('toBeSorted', () => {
     });
     it('fail - { key: "sortKey" }: message provided includes a passed key', () => {
       expect(toBeSorted(descendingObjs, { key: 'num' }).message()).toBe(
-        'Expected Array(3) to be sorted by num in ascending order'
+        'Expected Array(3) to be sorted by num in ascending order\nExpected 3 to be after 2'
       );
     });
     it('fail - { key: "missingKey" }: fails for a non-existant key', () => {
@@ -83,7 +83,7 @@ describe('toBeSorted', () => {
         toBeSorted(ascendingObjs, { key: 'missing', strict: false }).pass
       ).toBe(true);
     });
-    it('fail - { key: "missingKey", strict: "false" }: message provided for the .not casespecifies the missing key', () => {
+    it('fail - { key: "missingKey", strict: "false" }: message provided for the .not case specifies the missing key', () => {
       expect(
         toBeSorted(ascendingObjs, { key: 'missing', strict: false }).message()
       ).toBe(
@@ -125,7 +125,7 @@ describe('toBeSorted', () => {
   });
 
   describe('toBeSortedBy', () => {
-    const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
+    const ascendingObjs = [{ num: '1' }, { num: '2' }, { num: '3' }];
     const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
     it('extends jest.expect', () => {
       expect(typeof expect.toBeSortedBy).toBe('function');
