@@ -9,6 +9,12 @@ const defaultCompare = (a, b) => {
 };
 
 exports.toBeSorted = (received, options = {}) => {
+  if (!received[Symbol.iterator]) {
+    return {
+      pass: false,
+      message: () => `${received} is not iterable and cannot be sorted`,
+    };
+  }
   const iterable = [...received];
 
   const {

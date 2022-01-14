@@ -106,12 +106,21 @@ describe('toBeSorted', () => {
   describe('flat sets', () => {
     const unsortedSet = new Set([1, 8, 3, 207]);
     const ascendingSet = new Set([5, 8, 24, 300]);
-    it('fail - an unsorted set no longer passes by default', () => {
+    it('fail: unsorted set of numbers', () => {
       expect(toBeSorted(unsortedSet).pass).toBe(false);
     });
 
-    it('pass - set with ascending numbers', () => {
+    it('pass: set with ascending numbers', () => {
       expect(toBeSorted(ascendingSet).pass).toBe(true);
+    });
+  });
+
+  describe('non-iterables', () => {
+    it('fail: all non-iterables are considered unsorted', () => {
+      expect(toBeSorted(1).pass).toBe(false);
+      expect(toBeSorted(1).message()).toBe(
+        `1 is not iterable and cannot be sorted`
+      );
     });
   });
 
