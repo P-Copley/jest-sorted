@@ -124,6 +124,14 @@ describe('toBeSorted', () => {
     });
   });
 
+  describe('string elements', () => {
+    it('fail: message surrounds string elements in double quotes', () => {
+      expect(toBeSorted(['5', '10']).message()).toBe(
+        'Expected [5,10] to be sorted in ascending order\nExpected "5" to be after "10"'
+      );
+    });
+  });
+
   describe('toBeSortedBy', () => {
     const ascendingObjs = [{ num: '1' }, { num: '2' }, { num: '3' }];
     const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
