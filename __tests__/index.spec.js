@@ -103,7 +103,7 @@ describe('toBeSorted', () => {
     });
   });
 
-  describe('works with the sets', () => {
+  describe('flat sets', () => {
     const unsortedSet = new Set([1, 8, 3, 207]);
     const ascendingSet = new Set([5, 8, 24, 300]);
     it('fail - an unsorted set no longer passes by default', () => {
