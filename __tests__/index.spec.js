@@ -30,7 +30,7 @@ describe('toBeSorted', () => {
     });
     it('fail: array of ascending numbers message provided', () => {
       expect(toBeSorted([3, 2, 1]).message()).toBe(
-        'Expected [3,2,1] to be sorted in ascending order'
+        'Expected [3,2,1] to be sorted in ascending order\nExpected 3 to be after 2'
       );
     });
     it('pass - { descending: true }: array of descending numbers', () => {
@@ -46,7 +46,7 @@ describe('toBeSorted', () => {
     });
     it('fail - { descending: true }: array of descending numbers message provided', () => {
       expect(toBeSorted([1, 2, 3], { descending: true }).message()).toBe(
-        'Expected [1,2,3] to be sorted in descending order'
+        'Expected [1,2,3] to be sorted in descending order\nExpected 1 to be before 2'
       );
     });
   });
@@ -67,7 +67,7 @@ describe('toBeSorted', () => {
     });
     it('fail - { key: "sortKey" }: message provided includes a passed key', () => {
       expect(toBeSorted(descendingObjs, { key: 'num' }).message()).toBe(
-        'Expected Array(3) to be sorted by num in ascending order'
+        'Expected Array(3) to be sorted by num in ascending order\nExpected 3 to be after 2'
       );
     });
     it('fail - { key: "missingKey" }: fails for a non-existant key', () => {
@@ -83,7 +83,7 @@ describe('toBeSorted', () => {
         toBeSorted(ascendingObjs, { key: 'missing', strict: false }).pass
       ).toBe(true);
     });
-    it('fail - { key: "missingKey", strict: "false" }: message provided for the .not casespecifies the missing key', () => {
+    it('fail - { key: "missingKey", strict: "false" }: message provided for the .not case specifies the missing key', () => {
       expect(
         toBeSorted(ascendingObjs, { key: 'missing', strict: false }).message()
       ).toBe(
@@ -106,17 +106,34 @@ describe('toBeSorted', () => {
   describe('flat sets', () => {
     const unsortedSet = new Set([1, 8, 3, 207]);
     const ascendingSet = new Set([5, 8, 24, 300]);
-    it('fail - an unsorted set no longer passes by default', () => {
+    it('fail: unsorted set of numbers', () => {
       expect(toBeSorted(unsortedSet).pass).toBe(false);
     });
 
-    it('pass - set with ascending numbers', () => {
+    it('pass: set with ascending numbers', () => {
       expect(toBeSorted(ascendingSet).pass).toBe(true);
     });
   });
 
+  describe('non-iterables', () => {
+    it('fail: all non-iterables are considered unsorted', () => {
+      expect(toBeSorted(1).pass).toBe(false);
+      expect(toBeSorted(1).message()).toBe(
+        `1 is not iterable and cannot be sorted`
+      );
+    });
+  });
+
+  describe('string elements', () => {
+    it('fail: message surrounds string elements in double quotes', () => {
+      expect(toBeSorted(['5', '10']).message()).toBe(
+        'Expected [5,10] to be sorted in ascending order\nExpected "5" to be after "10"'
+      );
+    });
+  });
+
   describe('toBeSortedBy', () => {
-    const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
+    const ascendingObjs = [{ num: '1' }, { num: '2' }, { num: '3' }];
     const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
     it('extends jest.expect', () => {
       expect(typeof expect.toBeSortedBy).toBe('function');
