@@ -103,6 +103,18 @@ describe('toBeSorted', () => {
     });
   });
 
+  describe('flat sets', () => {
+    const unsortedSet = new Set([1, 8, 3, 207]);
+    const ascendingSet = new Set([5, 8, 24, 300]);
+    it('fail - an unsorted set no longer passes by default', () => {
+      expect(toBeSorted(unsortedSet).pass).toBe(false);
+    });
+
+    it('pass - set with ascending numbers', () => {
+      expect(toBeSorted(ascendingSet).pass).toBe(true);
+    });
+  });
+
   describe('toBeSortedBy', () => {
     const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
     const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];

@@ -9,6 +9,8 @@ const defaultCompare = (a, b) => {
 };
 
 exports.toBeSorted = (received, options = {}) => {
+  const iterable = [...received];
+
   const {
     descending = false,
     key,
@@ -17,16 +19,16 @@ exports.toBeSorted = (received, options = {}) => {
     compare = defaultCompare,
   } = options;
   const descMult = descending ? -1 : 1;
-  const arrayMsg = key ? `Array(${received.length})` : `[${received}]`;
+  const arrayMsg = key ? `Array(${iterable.length})` : `[${iterable}]`;
   const orderMsg = descending ? 'descending' : 'ascending';
   let keyMsg = key ? `by ${key} ` : '';
 
   let pass = true;
 
   // we're accessing the next element where we would compare with undefined.
-  for (let i = 0; i < received.length - 1; i++) {
-    let ele = received[i];
-    let nextEle = received[i + 1];
+  for (let i = 0; i < iterable.length - 1; i++) {
+    let ele = iterable[i];
+    let nextEle = iterable[i + 1];
     if (key) {
       if (strict && !(key in ele)) {
         pass = false;
