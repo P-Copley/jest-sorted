@@ -46,7 +46,7 @@ describe('toBeSorted', () => {
     });
     it('fail - { descending: true }: array of descending numbers message provided', () => {
       expect(toBeSorted([1, 2, 3], { descending: true }).message()).toBe(
-        'Expected [1,2,3] to be sorted in descending order\nExpected 1 to be before 2'
+        'Expected [1,2,3] to be sorted in descending order\nExpected 2 to be before 1'
       );
     });
   });
