@@ -54,7 +54,8 @@ exports.toBeSorted = (received, options = {}) => {
       const eleOrder = descending ? 'before' : 'after';
       const strEle = JSON.stringify(ele);
       const strNextEle = JSON.stringify(nextEle);
-      failingElements = `\nExpected ${strEle} to be ${eleOrder} ${strNextEle}`;
+      const elePositioner = descending ? [strNextEle, strEle] : [strEle, strNextEle]
+      failingElements = `\nExpected ${elePositioner[0]} to be ${eleOrder} ${elePositioner[1]}`; 
       break;
     }
   }
