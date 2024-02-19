@@ -54,24 +54,6 @@ describe('toBeSorted', () => {
   describe('array of objects', () => {
     const ascendingObjs = [{ num: 1 }, { num: 2 }, { num: 3 }];
     const descendingObjs = [{ num: 3 }, { num: 2 }, { num: 1 }];
-    it('fail - { descending: true }: array of ascending numbers message provided', () => {
-      expect(toBeSorted(ascendingObjs, { descending: true, key: "num" }).pass).toBe(false);
-      expect(toBeSorted(ascendingObjs, { descending: true, key: "num" }).message()).toBe(
-        'Expected Array(3) to be sorted by num in descending order\nExpected 2 to be before 1'
-      );
-    });
-    it('fail - { descending: false }: array of descending numbers message provided', () => {
-      expect(toBeSorted(descendingObjs, { descending: false, key: "num" }).pass).toBe(false);
-      expect(toBeSorted(descendingObjs, { descending: false, key: "num" }).message()).toBe(
-        'Expected Array(3) to be sorted by num in ascending order\nExpected 3 to be after 2'
-      );
-    });
-    it('pass - { descending: true }: array of descending numbers', () => {
-      expect(toBeSorted(descendingObjs, { descending: true, key: "num" }).pass).toBe(true);
-    });
-    it('pass - { descending: false }: array of ascending numbers', () => {
-      expect(toBeSorted(ascendingObjs, { descending: false, key: "num" }).pass).toBe(true);
-    });
     it('pass - { key: "sortKey" }: uses the passed key to sort nested objects', () => {
       expect(toBeSorted(ascendingObjs, { key: 'num' }).pass).toBe(true);
     });
@@ -85,6 +67,28 @@ describe('toBeSorted', () => {
     });
     it('fail - { key: "sortKey" }: message provided includes a passed key', () => {
       expect(toBeSorted(descendingObjs, { key: 'num' }).message()).toBe(
+        'Expected Array(3) to be sorted by num in ascending order\nExpected 3 to be after 2'
+      );
+    });
+    it('pass - { descending: true }: uses the passed key to sort nested objects by explicit descending order', () => {
+      expect(toBeSorted(descendingObjs, { descending: true, key: "num" }).pass).toBe(true);
+    });
+    it('fail - { key: "sortKey", descending: true }: uses the passed key to sort nested objects in descending order', () => {
+      expect(toBeSorted(ascendingObjs, { descending: true, key: "num" }).pass).toBe(false);
+    });
+    it('fail - { key: "sortKey", descending: true }: message provided ordered elements in expected descending order', () => {
+      expect(toBeSorted(ascendingObjs, { descending: true, key: "num" }).message()).toBe(
+        'Expected Array(3) to be sorted by num in descending order\nExpected 2 to be before 1'
+      );
+    });
+    it('pass - { descending: false }: uses the passed key to sort nested objects by explicit ascending order', () => {
+      expect(toBeSorted(ascendingObjs, { descending: false, key: "num" }).pass).toBe(true);
+    });
+    it('fail - { key: "sortKey", descending: false }: uses the passed key to sort nested objects in ascending order', () => {
+      expect(toBeSorted(descendingObjs, { descending: false, key: "num" }).pass).toBe(false);
+    });
+    it('fail - { key: "sortKey", descending: false }: message provided ordered elements in expected ascending order', () => {
+      expect(toBeSorted(descendingObjs, { descending: false, key: "num" }).message()).toBe(
         'Expected Array(3) to be sorted by num in ascending order\nExpected 3 to be after 2'
       );
     });
