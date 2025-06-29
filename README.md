@@ -70,9 +70,19 @@ Then in your Jest config:
 }
 ```
 
-### Typescript
+### TypeScript
 
-- Coming soon...
+This package includes built-in TypeScript definitions. However, as required by Jest extensions, you need to modify the `types` field in your `tsconfig.json` to include `jest-sorted`:
+
+```js
+{
+  "compilerOptions": {
+     // other fields
+    "types": [/*...other types...*/,"jest", "jest-sorted"]
+  }
+  // ... 
+}
+```
 
 ## Usage
 
